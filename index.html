@@ -406,13 +406,28 @@ async function exportPDF() {
       if (drawH > 120) { drawH = 120; drawW = drawH * ratio; }
       // Center horizontally within column if narrower
       const offsetX = imgX + (IMG_COL - drawW) / 2;
-      const radius = 4;
-      pdf.saveGraphicsState();
-      pdf.setFillColor(255, 255, 255);
-      pdf.roundedRect(offsetX, y, drawW, drawH, radius, radius, 'f');
-      pdf.clip();
-      pdf.addImage(imgEl.src, 'JPEG', offsetX, y, drawW, drawH, '', 'FAST');
-      pdf.restoreGraphicsState();
+      // Draw rounded corners via canvas (reliable across all browsers/viewers)
+      const rcCanvas = document.createElement('canvas');
+      const SCALE = 3; // render at 3x for sharpness
+      const rcW = Math.round(drawW * SCALE * 3.78); // mm to px at 96dpi*scale
+      const rcH = Math.round(drawH * SCALE * 3.78);
+      const rPx = 4 * SCALE * 3.78; // 4mm radius in px
+      rcCanvas.width = rcW; rcCanvas.height = rcH;
+      const rc = rcCanvas.getContext('2d');
+      rc.beginPath();
+      rc.moveTo(rPx, 0);
+      rc.lineTo(rcW - rPx, 0);
+      rc.quadraticCurveTo(rcW, 0, rcW, rPx);
+      rc.lineTo(rcW, rcH - rPx);
+      rc.quadraticCurveTo(rcW, rcH, rcW - rPx, rcH);
+      rc.lineTo(rPx, rcH);
+      rc.quadraticCurveTo(0, rcH, 0, rcH - rPx);
+      rc.lineTo(0, rPx);
+      rc.quadraticCurveTo(0, 0, rPx, 0);
+      rc.closePath();
+      rc.clip();
+      rc.drawImage(imgEl, 0, 0, rcW, rcH);
+      pdf.addImage(rcCanvas.toDataURL('image/jpeg', 0.92), 'JPEG', offsetX, y, drawW, drawH, '', 'FAST');
     } else {
       // Placeholder
       pdf.setFillColor(242, 242, 240);
@@ -500,13 +515,27 @@ async function exportPDF() {
         // Light background for the square slot
         pdf.setFillColor(245, 245, 243);
         pdf.roundedRect(ex, y, THUMB, THUMB, 2, 2, 'F');
-        const rE = 3;
-        pdf.saveGraphicsState();
-        pdf.setFillColor(255, 255, 255);
-        pdf.roundedRect(ox, oy, dw, dh, rE, rE, 'f');
-        pdf.clip();
-        pdf.addImage(imgEl.src, 'JPEG', ox, oy, dw, dh, '', 'FAST');
-        pdf.restoreGraphicsState();
+        // Canvas-based rounded corners
+        const reCanvas = document.createElement('canvas');
+        const SC = 3, PX = 3.78;
+        const reW = Math.round(dw * SC * PX), reH = Math.round(dh * SC * PX);
+        const rePx = 3 * SC * PX;
+        reCanvas.width = reW; reCanvas.height = reH;
+        const re = reCanvas.getContext('2d');
+        re.beginPath();
+        re.moveTo(rePx, 0);
+        re.lineTo(reW - rePx, 0);
+        re.quadraticCurveTo(reW, 0, reW, rePx);
+        re.lineTo(reW, reH - rePx);
+        re.quadraticCurveTo(reW, reH, reW - rePx, reH);
+        re.lineTo(rePx, reH);
+        re.quadraticCurveTo(0, reH, 0, reH - rePx);
+        re.lineTo(0, rePx);
+        re.quadraticCurveTo(0, 0, rePx, 0);
+        re.closePath();
+        re.clip();
+        re.drawImage(imgEl, 0, 0, reW, reH);
+        pdf.addImage(reCanvas.toDataURL('image/jpeg', 0.88), 'JPEG', ox, oy, dw, dh, '', 'FAST');
       } else {
         pdf.setFillColor(242, 242, 240);
         pdf.roundedRect(ex, y, THUMB, THUMB, 2, 2, 'F');
