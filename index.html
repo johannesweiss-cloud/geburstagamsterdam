@@ -47,6 +47,9 @@ body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-se
 .img-zone-preview { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
 .img-zone-hint { font-size: 11px; text-align: center; color: var(--muted); padding: 7px; background: rgba(0,0,0,.03); }
 
+.delete-btn { margin-top: 12px; width: 100%; padding: 11px; background: transparent; border: 1px solid #f0d0d0; border-radius: 10px; font-family: 'Outfit', sans-serif; font-size: 12px; color: #c07070; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; transition: background .2s, color .2s; }
+.delete-btn:hover { background: #fff0f0; color: #a05050; }
+
 .add-btn-wrap { padding: 10px 14px 0; }
 .add-btn { width: 100%; background: var(--white); border: 1.5px dashed var(--border); border-radius: var(--radius); padding: 17px; font-family: 'Outfit', sans-serif; font-size: 14px; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: border-color .2s, color .2s; }
 .add-btn:hover { border-color: var(--text); color: var(--text); }
@@ -185,11 +188,27 @@ function renderDates() {
       <div class="card-body"><div class="card-body-inner">
         <div class="card-desc-full">${esc(d.desc)}</div>
         ${imgZoneHTML}
+        <button class="delete-btn" data-id="${d.id}">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/></svg>
+          Date löschen
+        </button>
       </div></div>`;
     list.appendChild(card);
   });
   list.querySelectorAll('[data-toggle]').forEach(el => el.addEventListener('click', () => toggleCard(el.dataset.toggle)));
   list.querySelectorAll('.img-zone').forEach(el => el.addEventListener('click', () => triggerDateUpload(el.dataset.id)));
+  list.querySelectorAll('.delete-btn').forEach(el => el.addEventListener('click', (e) => {
+    e.stopPropagation();
+    deleteDate(el.dataset.id);
+  }));
+}
+
+function deleteDate(id) {
+  if (!confirm('Dieses Date wirklich löschen?')) return;
+  dates = dates.filter(d => d.id !== id);
+  saveState();
+  renderDates();
+  showToast('Date gelöscht');
 }
 
 function toggleCard(id) {
