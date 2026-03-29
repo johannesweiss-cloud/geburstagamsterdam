@@ -40,9 +40,9 @@ body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-se
 .card-body-inner { padding: 0 18px 20px; border-top: 1px solid var(--border); }
 .card-desc-full { font-size: 14px; line-height: 1.65; color: var(--muted); padding-top: 14px; margin-bottom: 14px; }
 
-.img-zone { border: 1.5px dashed var(--border); border-radius: 14px; overflow: hidden; cursor: pointer; transition: border-color .2s; position: relative; background: var(--bg); }
+.img-zone { border: 1.5px dashed var(--border); border-radius: 14px; overflow: hidden; cursor: pointer; transition: border-color .2s; background: var(--bg); }
 .img-zone:hover { border-color: var(--muted); }
-.img-zone-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 28px 20px; color: var(--muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; pointer-events: none; }
+.img-zone-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 28px 20px; color: var(--muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; }
 .img-zone-placeholder svg { opacity: .35; }
 .img-zone-preview { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
 .img-zone-hint { font-size: 11px; text-align: center; color: var(--muted); padding: 7px; background: rgba(0,0,0,.03); }
@@ -54,8 +54,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-se
 .extra-section { padding: 28px 14px 0; }
 .extra-label { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; padding: 0 4px; }
 .extra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-.extra-slot { border-radius: 14px; overflow: hidden; aspect-ratio: 1; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); display: flex; align-items: center; justify-content: center; transition: border-color .2s; }
-.extra-slot:hover { border-color: var(--muted); }
+.extra-slot { border-radius: 14px; overflow: hidden; aspect-ratio: 1; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); display: flex; align-items: center; justify-content: center; }
 .extra-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .extra-add { border: 1.5px dashed var(--border); border-radius: 14px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--muted); background: var(--white); transition: border-color .2s, color .2s; }
 .extra-add:hover { border-color: var(--text); color: var(--text); }
@@ -71,7 +70,7 @@ body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-se
 .modal-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 22px; }
 .modal-sheet h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; margin-bottom: 18px; }
 .field-label { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; display: block; }
-.field-input { width: 100%; padding: 12px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; font-family: 'Outfit', sans-serif; font-size: 15px; color: var(--text); outline: none; margin-bottom: 14px; transition: border-color .2s; -webkit-appearance: none; }
+.field-input { width: 100%; padding: 12px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; font-family: 'Outfit', sans-serif; font-size: 15px; color: var(--text); outline: none; margin-bottom: 14px; -webkit-appearance: none; }
 .field-input:focus { border-color: var(--text); }
 textarea.field-input { resize: none; min-height: 86px; line-height: 1.55; }
 .modal-actions { display: flex; gap: 10px; margin-top: 6px; }
@@ -158,25 +157,20 @@ function getDefaultDates() {
 
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
 
-// ── RENDER ────────────────────────────────────────────────────
 function renderDates() {
   const list = document.getElementById('date-list');
   const openIds = new Set([...list.querySelectorAll('.date-card.open')].map(c => c.id.replace('card-','')));
   list.innerHTML = '';
-
   dates.forEach((d, i) => {
     const card = document.createElement('div');
     card.className = 'date-card' + (openIds.has(d.id) ? ' open' : '');
     card.id = 'card-' + d.id;
-
     const thumbHTML = d.img
       ? `<div class="card-thumb"><img src="${d.img}" alt=""></div>`
       : `<div class="card-thumb"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
-
     const imgZoneHTML = d.img
       ? `<div class="img-zone" data-id="${d.id}"><img class="img-zone-preview" src="${d.img}" alt=""><div class="img-zone-hint">Tippen zum Ändern</div></div>`
       : `<div class="img-zone" data-id="${d.id}"><div class="img-zone-placeholder"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Foto hinzufügen</div></div>`;
-
     card.innerHTML = `
       <div class="card-header" data-toggle="${d.id}">
         <div class="card-header-left">
@@ -192,16 +186,10 @@ function renderDates() {
         <div class="card-desc-full">${esc(d.desc)}</div>
         ${imgZoneHTML}
       </div></div>`;
-
     list.appendChild(card);
   });
-
-  list.querySelectorAll('[data-toggle]').forEach(el => {
-    el.addEventListener('click', () => toggleCard(el.dataset.toggle));
-  });
-  list.querySelectorAll('.img-zone').forEach(el => {
-    el.addEventListener('click', () => triggerDateUpload(el.dataset.id));
-  });
+  list.querySelectorAll('[data-toggle]').forEach(el => el.addEventListener('click', () => toggleCard(el.dataset.toggle)));
+  list.querySelectorAll('.img-zone').forEach(el => el.addEventListener('click', () => triggerDateUpload(el.dataset.id)));
 }
 
 function toggleCard(id) {
@@ -221,21 +209,16 @@ function renderExtras() {
     const imgEl = document.createElement('img');
     imgEl.src = img; imgEl.alt = '';
     slot.appendChild(imgEl);
-    slot.addEventListener('click', () => pickImage(dataUrl => {
-      extras[i] = dataUrl; saveState(); renderExtras(); showToast('Bild geändert ✓');
-    }));
+    slot.addEventListener('click', () => pickImage(dataUrl => { extras[i] = dataUrl; saveState(); renderExtras(); showToast('Bild geändert ✓'); }));
     grid.appendChild(slot);
   });
   const addBtn = document.createElement('div');
   addBtn.className = 'extra-add';
   addBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`;
-  addBtn.addEventListener('click', () => pickImage(dataUrl => {
-    extras.push(dataUrl); saveState(); renderExtras(); showToast('Bild hinzugefügt ✓');
-  }));
+  addBtn.addEventListener('click', () => pickImage(dataUrl => { extras.push(dataUrl); saveState(); renderExtras(); showToast('Bild hinzugefügt ✓'); }));
   grid.appendChild(addBtn);
 }
 
-// ── IMAGE PICKER ──────────────────────────────────────────────
 function pickImage(onResult) {
   const input = document.createElement('input');
   input.type = 'file';
@@ -258,7 +241,8 @@ function resizeImage(file, callback) {
   reader.onload = function(e) {
     const img = new Image();
     img.onload = function() {
-      const MAX = 1600;
+      // Keep full image, just limit max dimension to save space
+      const MAX = 1800;
       let w = img.width, h = img.height;
       if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
       if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
@@ -278,8 +262,7 @@ function triggerDateUpload(id) {
   pickImage(dataUrl => {
     const d = dates.find(x => x.id === id);
     if (!d) return;
-    d.img = dataUrl;
-    saveState(); renderDates();
+    d.img = dataUrl; saveState(); renderDates();
     requestAnimationFrame(() => {
       const card = document.getElementById('card-' + id);
       if (card) card.classList.add('open');
@@ -288,7 +271,6 @@ function triggerDateUpload(id) {
   });
 }
 
-// ── MODAL ─────────────────────────────────────────────────────
 function openModal() {
   document.getElementById('modal').classList.remove('hidden');
   setTimeout(() => document.getElementById('new-title').focus(), 350);
@@ -309,7 +291,11 @@ function addDate() {
 }
 document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
-// ── PDF EXPORT – direct jsPDF canvas drawing ──────────────────
+// ── PDF EXPORT ────────────────────────────────────────────────
+// Key insight: images are CONTAIN (never cropped), placed in a fixed column.
+// Portrait images get tall boxes, landscape images get wide boxes.
+// Each date row height adapts to the actual image height.
+
 async function exportPDF() {
   if (!window.jspdf) { showToast('Bitte kurz warten…'); return; }
   showToast('PDF wird erstellt…');
@@ -317,16 +303,19 @@ async function exportPDF() {
   const { jsPDF } = window.jspdf;
   const pdf = new jsPDF({ unit: 'mm', format: 'a4', orientation: 'portrait' });
 
-  const PW = 210; // A4 width mm
-  const PH = 297; // A4 height mm
-  const ML = 16;  // margin left
-  const MR = 16;  // margin right
-  const MT = 16;  // margin top
-  const CW = PW - ML - MR; // content width = 178mm
+  // A4 dimensions
+  const PW = 210, PH = 297;
+  const ML = 14, MR = 14, MT = 14;
+  const CW = PW - ML - MR; // 182mm usable width
+
+  // Image column width (fixed), text column gets the rest
+  const IMG_COL = 78; // mm
+  const GAP = 8;       // mm between image and text
+  const TEXT_COL = CW - IMG_COL - GAP; // ~96mm
 
   let y = MT;
 
-  // ── Helper: load image into canvas, return {canvas, w, h} ──
+  // Load image, return HTMLImageElement
   function loadImg(src) {
     return new Promise(resolve => {
       const img = new Image();
@@ -336,189 +325,188 @@ async function exportPDF() {
     });
   }
 
-  // ── Helper: draw image fitted into a box, return actual drawn height ──
-  function drawImgFit(imgEl, x, y, boxW, boxH) {
-    if (!imgEl) return;
-    const ratio = imgEl.width / imgEl.height;
-    let dw = boxW, dh = boxW / ratio;
-    if (dh > boxH) { dh = boxH; dw = boxH * ratio; }
-    const dx = x + (boxW - dw) / 2;
-    const dy = y + (boxH - dh) / 2;
-    pdf.addImage(imgEl.src, 'JPEG', dx, dy, dw, dh);
-    return dh;
+  // Draw image CONTAIN into a column of fixed width.
+  // Height is calculated from actual image aspect ratio → no cropping ever.
+  // Returns the actual drawn height in mm.
+  function drawImgContain(imgEl, x, y, colW) {
+    const ratio = imgEl.naturalWidth / imgEl.naturalHeight;
+    const drawW = colW;
+    const drawH = drawW / ratio; // height adapts to image proportions
+    pdf.addImage(imgEl.src, 'JPEG', x, y, drawW, drawH, '', 'FAST');
+    return drawH;
   }
 
-  // ── Helper: new page if needed ──
-  function checkPage(neededH) {
-    if (y + neededH > PH - 16) {
+  // Check if we need a new page, add one if so
+  function ensureSpace(needed) {
+    if (y + needed > PH - 12) {
       pdf.addPage();
       y = MT;
     }
   }
 
-  // ── HEADER ──
+  // ── HEADER ──────────────────────────────────────────────────
   pdf.setFont('helvetica', 'normal');
-  pdf.setFontSize(8);
-  pdf.setTextColor(170, 170, 170);
-  pdf.text('AMSTERDAM · 2026', PW / 2, y + 4, { align: 'center', charSpace: 1.5 });
+  pdf.setFontSize(7.5);
+  pdf.setTextColor(160, 160, 155);
+  pdf.setCharSpace(2);
+  pdf.text('AMSTERDAM · 2026', PW / 2, y + 5, { align: 'center' });
+  pdf.setCharSpace(0);
   y += 10;
 
   pdf.setFont('times', 'bold');
-  pdf.setFontSize(24);
+  pdf.setFontSize(22);
   pdf.setTextColor(17, 17, 17);
-  pdf.text('Alles Gute zum Geburtstag, Schatzi!', PW / 2, y + 8, { align: 'center' });
-  y += 14;
+  pdf.text('Alles Gute zum Geburtstag, Schatzi!', PW / 2, y + 7, { align: 'center' });
+  y += 13;
 
   pdf.setFont('times', 'italic');
-  pdf.setFontSize(11);
-  pdf.setTextColor(130, 130, 120);
+  pdf.setFontSize(10.5);
+  pdf.setTextColor(120, 120, 115);
   pdf.text('Unsere Date-Erinnerungen aus Amsterdam', PW / 2, y + 4, { align: 'center' });
-  y += 10;
+  y += 9;
 
-  // Divider
-  pdf.setDrawColor(220, 220, 215);
-  pdf.setLineWidth(0.3);
+  pdf.setDrawColor(215, 215, 210);
+  pdf.setLineWidth(0.25);
   pdf.line(ML, y, PW - MR, y);
-  y += 8;
+  y += 7;
 
-  // ── DATE ROWS ──
-  const IMG_W = 80;  // mm – image column width
-  const IMG_H = 56;  // mm – image height (fixed, proportional crop)
-  const TEXT_W = CW - IMG_W - 8; // mm – text column width
-  const ROW_H = IMG_H + 10; // total row height including padding
-
+  // ── DATE ROWS ───────────────────────────────────────────────
   for (let i = 0; i < dates.length; i++) {
     const d = dates[i];
-    const rev = i % 2 === 1; // alternate
+    const rev = i % 2 === 1;
 
-    checkPage(ROW_H + 10);
+    // Calculate row height based on actual image dimensions
+    let imgDrawH = 55; // fallback height for placeholder
+    let imgEl = null;
 
-    const imgX = rev ? ML + TEXT_W + 8 : ML;
-    const textX = rev ? ML : ML + IMG_W + 8;
-
-    // Draw image or placeholder
     if (d.img) {
-      const imgEl = await loadImg(d.img);
+      imgEl = await loadImg(d.img);
       if (imgEl) {
-        // Crop to box using canvas
-        const canvas = document.createElement('canvas');
-        const PX_W = 400, PX_H = Math.round(400 * IMG_H / IMG_W);
-        canvas.width = PX_W; canvas.height = PX_H;
-        const ctx = canvas.getContext('2d');
-        // center-crop
-        const srcRatio = imgEl.width / imgEl.height;
-        const dstRatio = PX_W / PX_H;
-        let sx, sy, sw, sh;
-        if (srcRatio > dstRatio) {
-          sh = imgEl.height; sw = sh * dstRatio;
-          sx = (imgEl.width - sw) / 2; sy = 0;
-        } else {
-          sw = imgEl.width; sh = sw / dstRatio;
-          sx = 0; sy = (imgEl.height - sh) / 2;
-        }
-        ctx.drawImage(imgEl, sx, sy, sw, sh, 0, 0, PX_W, PX_H);
-        const cropped = canvas.toDataURL('image/jpeg', 0.92);
-        pdf.addImage(cropped, 'JPEG', imgX, y, IMG_W, IMG_H, '', 'FAST');
+        const ratio = imgEl.naturalWidth / imgEl.naturalHeight;
+        imgDrawH = IMG_COL / ratio; // actual height this image will take
+        // Cap very tall images so they don't take more than ~120mm
+        if (imgDrawH > 120) { imgDrawH = 120; }
       }
-    } else {
-      // Placeholder box
-      pdf.setFillColor(240, 240, 238);
-      pdf.roundedRect(imgX, y, IMG_W, IMG_H, 3, 3, 'F');
-      pdf.setFont('helvetica', 'normal');
-      pdf.setFontSize(7);
-      pdf.setTextColor(180, 180, 175);
-      pdf.text('KEIN FOTO', imgX + IMG_W / 2, y + IMG_H / 2, { align: 'center' });
     }
 
-    // Text block
-    const textY = y;
+    // Min row height = enough for text label + title + desc
+    const minTextH = 50;
+    const rowH = Math.max(imgDrawH, minTextH);
 
-    // Date number
+    ensureSpace(rowH + 10);
+
+    const imgX = rev ? ML + TEXT_COL + GAP : ML;
+    const textX = rev ? ML : ML + IMG_COL + GAP;
+
+    // Draw image or placeholder
+    if (imgEl) {
+      const ratio = imgEl.naturalWidth / imgEl.naturalHeight;
+      let drawW = IMG_COL;
+      let drawH = drawW / ratio;
+      if (drawH > 120) { drawH = 120; drawW = drawH * ratio; }
+      // Center horizontally within column if narrower
+      const offsetX = imgX + (IMG_COL - drawW) / 2;
+      pdf.addImage(imgEl.src, 'JPEG', offsetX, y, drawW, drawH, '', 'FAST');
+    } else {
+      // Placeholder
+      pdf.setFillColor(242, 242, 240);
+      pdf.roundedRect(imgX, y, IMG_COL, imgDrawH, 2, 2, 'F');
+      pdf.setFont('helvetica', 'normal');
+      pdf.setFontSize(6.5);
+      pdf.setTextColor(185, 185, 180);
+      pdf.text('KEIN FOTO', imgX + IMG_COL / 2, y + imgDrawH / 2, { align: 'center' });
+    }
+
+    // Text block — vertically centered relative to image height
+    const textTopOffset = 2;
+
     pdf.setFont('helvetica', 'normal');
-    pdf.setFontSize(7);
-    pdf.setTextColor(170, 170, 160);
-    pdf.text(`DATE ${String(i+1).padStart(2,'0')}`, textX, textY + 5, { charSpace: 1.5 });
+    pdf.setFontSize(6.5);
+    pdf.setTextColor(165, 165, 158);
+    pdf.setCharSpace(1.8);
+    pdf.text(`DATE ${String(i+1).padStart(2,'0')}`, textX, y + textTopOffset + 5);
+    pdf.setCharSpace(0);
 
-    // Title
     pdf.setFont('times', 'bold');
-    pdf.setFontSize(18);
+    pdf.setFontSize(17);
     pdf.setTextColor(17, 17, 17);
-    const titleLines = pdf.splitTextToSize(d.title, TEXT_W);
-    pdf.text(titleLines, textX, textY + 13);
-    const titleH = titleLines.length * 7;
+    const titleLines = pdf.splitTextToSize(d.title, TEXT_COL);
+    pdf.text(titleLines, textX, y + textTopOffset + 13);
+    const titleBlockH = titleLines.length * 6.5;
 
-    // Description
     pdf.setFont('helvetica', 'normal');
-    pdf.setFontSize(9.5);
-    pdf.setTextColor(100, 100, 90);
-    const descLines = pdf.splitTextToSize(d.desc, TEXT_W);
-    pdf.text(descLines, textX, textY + 13 + titleH + 2);
+    pdf.setFontSize(9);
+    pdf.setTextColor(105, 105, 98);
+    const descLines = pdf.splitTextToSize(d.desc || '', TEXT_COL);
+    pdf.text(descLines, textX, y + textTopOffset + 13 + titleBlockH + 3);
 
-    y += ROW_H;
+    y += rowH + 6;
 
-    // Divider between dates
+    // Divider
     if (i < dates.length - 1) {
-      pdf.setDrawColor(235, 235, 230);
+      ensureSpace(4);
+      pdf.setDrawColor(228, 228, 223);
       pdf.setLineWidth(0.2);
       pdf.line(ML, y, PW - MR, y);
       y += 6;
     }
   }
 
-  // ── EXTRA IMAGES ──
+  // ── EXTRA IMAGES ────────────────────────────────────────────
   if (extras.length > 0) {
-    y += 6;
-    checkPage(60);
+    y += 4;
+    ensureSpace(20);
 
-    pdf.setDrawColor(220, 220, 215);
-    pdf.setLineWidth(0.3);
+    pdf.setDrawColor(215, 215, 210);
+    pdf.setLineWidth(0.25);
     pdf.line(ML, y, PW - MR, y);
     y += 6;
 
     pdf.setFont('helvetica', 'normal');
-    pdf.setFontSize(7);
-    pdf.setTextColor(170, 170, 160);
-    pdf.text('WEITERE BILDER', ML, y + 3, { charSpace: 1.5 });
+    pdf.setFontSize(6.5);
+    pdf.setTextColor(165, 165, 158);
+    pdf.setCharSpace(1.8);
+    pdf.text('WEITERE BILDER', ML, y + 3);
+    pdf.setCharSpace(0);
     y += 8;
 
+    // 3 per row, square thumbnail, contain inside square
     const COLS = 3;
-    const GAP = 4;
-    const THUMB = (CW - GAP * (COLS - 1)) / COLS; // ~56mm each
+    const GAP_E = 5;
+    const THUMB = (CW - GAP_E * (COLS - 1)) / COLS; // ~56mm
 
     for (let i = 0; i < extras.length; i++) {
       const col = i % COLS;
-      const row = Math.floor(i / COLS);
-      if (col === 0 && row > 0) {
-        y += THUMB + GAP;
-        checkPage(THUMB + GAP);
+      if (col === 0 && i > 0) {
+        y += THUMB + GAP_E;
+        ensureSpace(THUMB + GAP_E);
       }
-      const ex = ML + col * (THUMB + GAP);
-      const ey = y;
+      const ex = ML + col * (THUMB + GAP_E);
 
       const imgEl = await loadImg(extras[i]);
       if (imgEl) {
-        // Square crop
-        const canvas = document.createElement('canvas');
-        const SZ = 300;
-        canvas.width = SZ; canvas.height = SZ;
-        const ctx = canvas.getContext('2d');
-        const s = Math.min(imgEl.width, imgEl.height);
-        const sx = (imgEl.width - s) / 2, sy = (imgEl.height - s) / 2;
-        ctx.drawImage(imgEl, sx, sy, s, s, 0, 0, SZ, SZ);
-        pdf.addImage(canvas.toDataURL('image/jpeg', 0.88), 'JPEG', ex, ey, THUMB, THUMB, '', 'FAST');
+        // Contain image within THUMB x THUMB square
+        const ratio = imgEl.naturalWidth / imgEl.naturalHeight;
+        let dw = THUMB, dh = THUMB;
+        if (ratio > 1) { dh = dw / ratio; } else { dw = dh * ratio; }
+        const ox = ex + (THUMB - dw) / 2;
+        const oy = y + (THUMB - dh) / 2;
+        // Light background for the square slot
+        pdf.setFillColor(245, 245, 243);
+        pdf.roundedRect(ex, y, THUMB, THUMB, 2, 2, 'F');
+        pdf.addImage(imgEl.src, 'JPEG', ox, oy, dw, dh, '', 'FAST');
       } else {
-        pdf.setFillColor(240,240,238);
-        pdf.roundedRect(ex, ey, THUMB, THUMB, 2, 2, 'F');
+        pdf.setFillColor(242, 242, 240);
+        pdf.roundedRect(ex, y, THUMB, THUMB, 2, 2, 'F');
       }
     }
-    y += THUMB + GAP;
+    y += THUMB + GAP_E;
   }
 
   pdf.save('amsterdam-erinnerung.pdf');
   showToast('PDF gespeichert ✓');
 }
 
-// ── UTILS ─────────────────────────────────────────────────────
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -526,6 +514,7 @@ function showToast(msg) {
   clearTimeout(t._t);
   t._t = setTimeout(() => t.classList.remove('show'), 2500);
 }
+
 function esc(s) {
   return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
