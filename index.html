@@ -7,64 +7,36 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
 :root {
-  --white: #ffffff;
-  --bg: #f7f7f5;
-  --card-bg: #f0f0ee;
-  --border: #e2e2de;
-  --text: #111111;
-  --muted: #888880;
-  --radius: 20px;
+  --white: #ffffff; --bg: #f7f7f5; --card-bg: #f0f0ee;
+  --border: #e2e2de; --text: #111111; --muted: #888880; --radius: 20px;
 }
-
 html { scroll-behavior: smooth; }
+body { background: var(--bg); color: var(--text); font-family: 'Outfit', sans-serif; font-weight: 300; min-height: 100vh; max-width: 430px; margin: 0 auto; padding-bottom: 110px; }
 
-body {
-  background: var(--bg);
-  color: var(--text);
-  font-family: 'Outfit', sans-serif;
-  font-weight: 300;
-  min-height: 100vh;
-  max-width: 430px;
-  margin: 0 auto;
-  padding-bottom: 110px;
-}
-
-.hero {
-  background: var(--white);
-  padding: 60px 28px 48px;
-  text-align: center;
-  border-bottom: 1px solid var(--border);
-}
+.hero { background: var(--white); padding: 60px 28px 48px; text-align: center; border-bottom: 1px solid var(--border); }
 .hero-tag { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; display: block; }
 .hero h1 { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 600; line-height: 1.25; margin-bottom: 14px; }
 .hero h1 em { font-style: italic; font-weight: 400; }
 .hero-sub { font-size: 15px; color: var(--muted); line-height: 1.6; }
 
 .section-label { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); padding: 28px 20px 10px; }
-
 .date-list { display: flex; flex-direction: column; gap: 10px; padding: 0 14px; }
 
 .date-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; transition: box-shadow .2s; }
 .date-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.06); }
-
 .card-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; cursor: pointer; user-select: none; -webkit-user-select: none; gap: 12px; }
 .card-header-left { flex: 1; min-width: 0; }
 .card-num { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
 .card-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; line-height: 1.2; }
 .card-desc-preview { font-size: 13px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .card-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-
 .card-thumb { width: 42px; height: 42px; border-radius: 10px; background: var(--card-bg); border: 1px solid var(--border); overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
 .chevron { width: 18px; height: 18px; color: var(--muted); transition: transform .25s ease; flex-shrink: 0; }
 .date-card.open .chevron { transform: rotate(180deg); }
-
 .card-body { max-height: 0; overflow: hidden; transition: max-height .35s cubic-bezier(.4,0,.2,1); }
 .date-card.open .card-body { max-height: 700px; }
-
 .card-body-inner { padding: 0 18px 20px; border-top: 1px solid var(--border); }
 .card-desc-full { font-size: 14px; line-height: 1.65; color: var(--muted); padding-top: 14px; margin-bottom: 14px; }
 
@@ -82,11 +54,9 @@ body {
 .extra-section { padding: 28px 14px 0; }
 .extra-label { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; padding: 0 4px; }
 .extra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-
-.extra-slot { border-radius: 14px; overflow: hidden; aspect-ratio: 1; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); position: relative; display: flex; align-items: center; justify-content: center; transition: border-color .2s; }
+.extra-slot { border-radius: 14px; overflow: hidden; aspect-ratio: 1; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); display: flex; align-items: center; justify-content: center; transition: border-color .2s; }
 .extra-slot:hover { border-color: var(--muted); }
 .extra-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
-
 .extra-add { border: 1.5px dashed var(--border); border-radius: 14px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--muted); background: var(--white); transition: border-color .2s, color .2s; }
 .extra-add:hover { border-color: var(--text); color: var(--text); }
 
@@ -115,7 +85,7 @@ textarea.field-input { resize: none; min-height: 86px; line-height: 1.55; }
 <body>
 
 <div class="hero">
-  <span class="hero-tag">Amsterdam · 2025</span>
+  <span class="hero-tag">Amsterdam · 2026</span>
   <h1>Alles Gute zum<br>Geburtstag, <em>Schatzi!</em></h1>
   <p class="hero-sub">Date Ideen für unsere Zeit in Amsterdam</p>
 </div>
@@ -158,7 +128,6 @@ textarea.field-input { resize: none; min-height: 86px; line-height: 1.55; }
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
-// ── STATE ──────────────────────────────────────────────────────
 let dates = [];
 let extras = [];
 
@@ -168,19 +137,14 @@ function loadState() {
     const e = localStorage.getItem('ams-extras-v2');
     dates = d ? JSON.parse(d) : getDefaultDates();
     extras = e ? JSON.parse(e) : [];
-  } catch(_) {
-    dates = getDefaultDates();
-    extras = [];
-  }
+  } catch(_) { dates = getDefaultDates(); extras = []; }
 }
 
 function saveState() {
   try {
     localStorage.setItem('ams-dates-v2', JSON.stringify(dates));
     localStorage.setItem('ams-extras-v2', JSON.stringify(extras));
-  } catch(e) {
-    showToast('Speicherfehler – Bilder evtl. zu groß');
-  }
+  } catch(e) { showToast('Speicherfehler – Bilder evtl. zu groß'); }
 }
 
 function getDefaultDates() {
@@ -194,7 +158,7 @@ function getDefaultDates() {
 
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
 
-// ── RENDER DATES ───────────────────────────────────────────────
+// ── RENDER ────────────────────────────────────────────────────
 function renderDates() {
   const list = document.getElementById('date-list');
   const openIds = new Set([...list.querySelectorAll('.date-card.open')].map(c => c.id.replace('card-','')));
@@ -210,16 +174,8 @@ function renderDates() {
       : `<div class="card-thumb"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
 
     const imgZoneHTML = d.img
-      ? `<div class="img-zone" data-id="${d.id}">
-           <img class="img-zone-preview" src="${d.img}" alt="">
-           <div class="img-zone-hint">Tippen zum Ändern</div>
-         </div>`
-      : `<div class="img-zone" data-id="${d.id}">
-           <div class="img-zone-placeholder">
-             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-             Foto hinzufügen
-           </div>
-         </div>`;
+      ? `<div class="img-zone" data-id="${d.id}"><img class="img-zone-preview" src="${d.img}" alt=""><div class="img-zone-hint">Tippen zum Ändern</div></div>`
+      : `<div class="img-zone" data-id="${d.id}"><div class="img-zone-placeholder"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>Foto hinzufügen</div></div>`;
 
     card.innerHTML = `
       <div class="card-header" data-toggle="${d.id}">
@@ -228,22 +184,18 @@ function renderDates() {
           <div class="card-title">${esc(d.title)}</div>
           <div class="card-desc-preview">${esc(d.desc)}</div>
         </div>
-        <div class="card-right">
-          ${thumbHTML}
+        <div class="card-right">${thumbHTML}
           <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
         </div>
       </div>
-      <div class="card-body">
-        <div class="card-body-inner">
-          <div class="card-desc-full">${esc(d.desc)}</div>
-          ${imgZoneHTML}
-        </div>
-      </div>`;
+      <div class="card-body"><div class="card-body-inner">
+        <div class="card-desc-full">${esc(d.desc)}</div>
+        ${imgZoneHTML}
+      </div></div>`;
 
     list.appendChild(card);
   });
 
-  // Attach events after render
   list.querySelectorAll('[data-toggle]').forEach(el => {
     el.addEventListener('click', () => toggleCard(el.dataset.toggle));
   });
@@ -260,23 +212,45 @@ function toggleCard(id) {
   if (!isOpen) card.classList.add('open');
 }
 
-// ── IMAGE UPLOAD – universal robust method ─────────────────────
+function renderExtras() {
+  const grid = document.getElementById('extra-grid');
+  grid.innerHTML = '';
+  extras.forEach((img, i) => {
+    const slot = document.createElement('div');
+    slot.className = 'extra-slot';
+    const imgEl = document.createElement('img');
+    imgEl.src = img; imgEl.alt = '';
+    slot.appendChild(imgEl);
+    slot.addEventListener('click', () => pickImage(dataUrl => {
+      extras[i] = dataUrl; saveState(); renderExtras(); showToast('Bild geändert ✓');
+    }));
+    grid.appendChild(slot);
+  });
+  const addBtn = document.createElement('div');
+  addBtn.className = 'extra-add';
+  addBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`;
+  addBtn.addEventListener('click', () => pickImage(dataUrl => {
+    extras.push(dataUrl); saveState(); renderExtras(); showToast('Bild hinzugefügt ✓');
+  }));
+  grid.appendChild(addBtn);
+}
+
+// ── IMAGE PICKER ──────────────────────────────────────────────
 function pickImage(onResult) {
   const input = document.createElement('input');
   input.type = 'file';
   input.accept = 'image/*';
-  input.style.cssText = 'position:fixed;top:-100px;left:-100px;opacity:0;';
+  // No capture attribute - avoids black camera in Chrome
+  input.style.cssText = 'position:fixed;top:-200px;left:-200px;opacity:0;width:1px;height:1px;';
   document.body.appendChild(input);
-
   input.addEventListener('change', function() {
     const file = this.files && this.files[0];
     document.body.removeChild(input);
     if (!file) return;
     resizeImage(file, onResult);
   });
-
-  // Small delay helps Chrome
-  setTimeout(() => input.click(), 10);
+  // Delay helps Chrome open file picker reliably
+  setTimeout(() => input.click(), 50);
 }
 
 function resizeImage(file, callback) {
@@ -284,15 +258,14 @@ function resizeImage(file, callback) {
   reader.onload = function(e) {
     const img = new Image();
     img.onload = function() {
-      const MAX = 1200;
+      const MAX = 1400;
       let w = img.width, h = img.height;
       if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
       if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
       const canvas = document.createElement('canvas');
       canvas.width = w; canvas.height = h;
-      const ctx = canvas.getContext('2d');
-      ctx.drawImage(img, 0, 0, w, h);
-      callback(canvas.toDataURL('image/jpeg', 0.82));
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      callback(canvas.toDataURL('image/jpeg', 0.85));
     };
     img.onerror = () => showToast('Bild konnte nicht geladen werden');
     img.src = e.target.result;
@@ -308,7 +281,6 @@ function triggerDateUpload(id) {
     d.img = dataUrl;
     saveState();
     renderDates();
-    // Re-open card after re-render
     requestAnimationFrame(() => {
       const card = document.getElementById('card-' + id);
       if (card) card.classList.add('open');
@@ -317,127 +289,108 @@ function triggerDateUpload(id) {
   });
 }
 
-// ── EXTRA IMAGES ───────────────────────────────────────────────
-function renderExtras() {
-  const grid = document.getElementById('extra-grid');
-  grid.innerHTML = '';
-
-  extras.forEach((img, i) => {
-    const slot = document.createElement('div');
-    slot.className = 'extra-slot';
-    const imgEl = document.createElement('img');
-    imgEl.src = img;
-    imgEl.alt = '';
-    slot.appendChild(imgEl);
-    slot.addEventListener('click', () => {
-      pickImage(dataUrl => {
-        extras[i] = dataUrl;
-        saveState();
-        renderExtras();
-        showToast('Bild geändert ✓');
-      });
-    });
-    grid.appendChild(slot);
-  });
-
-  const addBtn = document.createElement('div');
-  addBtn.className = 'extra-add';
-  addBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`;
-  addBtn.addEventListener('click', () => {
-    pickImage(dataUrl => {
-      extras.push(dataUrl);
-      saveState();
-      renderExtras();
-      showToast('Bild hinzugefügt ✓');
-    });
-  });
-  grid.appendChild(addBtn);
-}
-
 // ── MODAL ─────────────────────────────────────────────────────
 function openModal() {
   document.getElementById('modal').classList.remove('hidden');
   setTimeout(() => document.getElementById('new-title').focus(), 350);
 }
-
 function closeModal() {
   document.getElementById('modal').classList.add('hidden');
   document.getElementById('new-title').value = '';
   document.getElementById('new-desc').value = '';
 }
-
 function addDate() {
   const title = document.getElementById('new-title').value.trim();
   const desc = document.getElementById('new-desc').value.trim();
   if (!title) { document.getElementById('new-title').focus(); return; }
   dates.push({ id: uid(), title, desc, img: null });
-  saveState();
-  renderDates();
-  closeModal();
+  saveState(); renderDates(); closeModal();
   showToast('Date hinzugefügt ✓');
-  setTimeout(() => {
-    const last = document.getElementById('date-list').lastElementChild;
-    if (last) last.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  }, 150);
+  setTimeout(() => document.getElementById('date-list').lastElementChild?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 150);
 }
-
-document.getElementById('modal').addEventListener('click', function(e) {
-  if (e.target === this) closeModal();
-});
+document.getElementById('modal').addEventListener('click', function(e) { if (e.target === this) closeModal(); });
 
 // ── PDF EXPORT ────────────────────────────────────────────────
 function exportPDF() {
   if (!window.html2pdf) { showToast('Bitte kurz warten…'); return; }
   showToast('PDF wird erstellt…');
 
+  // Build date rows – alternating image left/right
   const rows = dates.map((d, i) => {
     const rev = i % 2 === 1;
+
+    // Image block – natural aspect ratio, no forced height
     const imgBlock = d.img
-      ? `<img src="${d.img}" style="width:260px;height:180px;object-fit:cover;border-radius:10px;display:block;flex-shrink:0;">`
-      : `<div style="width:260px;height:180px;background:#f0f0ee;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#bbb;letter-spacing:.06em;flex-shrink:0;">Kein Foto</div>`;
-    const textBlock = `<div style="flex:1;min-width:0;${rev ? 'padding-right:0;padding-left:0;' : ''}">
-      <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#aaa;margin-bottom:5px;">Date ${String(i+1).padStart(2,'0')}</div>
-      <div style="font-family:Georgia,serif;font-size:20px;font-weight:bold;margin-bottom:8px;line-height:1.2;">${esc(d.title)}</div>
-      <div style="font-size:12px;line-height:1.7;color:#555;">${esc(d.desc)}</div>
-    </div>`;
-    return `<div style="display:flex;flex-direction:${rev ? 'row-reverse' : 'row'};gap:24px;align-items:center;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid #eee;">
-      ${imgBlock}${textBlock}
-    </div>`;
+      ? `<div style="width:260px;flex-shrink:0;">
+           <img src="${d.img}" style="width:260px;height:auto;max-height:210px;object-fit:cover;border-radius:10px;display:block;">
+         </div>`
+      : `<div style="width:260px;height:180px;flex-shrink:0;background:#f0f0ee;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#bbb;letter-spacing:.06em;text-transform:uppercase;">
+           Kein Foto
+         </div>`;
+
+    const textBlock = `
+      <div style="flex:1;min-width:0;padding:4px 0;">
+        <div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#aaa;margin-bottom:6px;font-family:Arial,sans-serif;">Date ${String(i+1).padStart(2,'0')}</div>
+        <div style="font-family:Georgia,serif;font-size:21px;font-weight:bold;margin-bottom:9px;line-height:1.2;color:#111;">${esc(d.title)}</div>
+        <div style="font-size:12.5px;line-height:1.7;color:#555;font-family:Arial,sans-serif;">${esc(d.desc)}</div>
+      </div>`;
+
+    return `
+      <div style="display:flex;flex-direction:${rev ? 'row-reverse' : 'row'};gap:26px;align-items:center;margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid #ebebeb;">
+        ${imgBlock}${textBlock}
+      </div>`;
   }).join('');
 
-  const extrasBlock = extras.length ? `
-    <div style="padding-top:24px;border-top:1px solid #eee;">
-      <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#aaa;margin-bottom:14px;">Weitere Bilder</div>
-      <div style="display:flex;flex-wrap:wrap;gap:10px;">
-        ${extras.map(img => `<img src="${img}" style="width:150px;height:150px;object-fit:cover;border-radius:8px;">`).join('')}
-      </div>
-    </div>` : '';
+  // Extras grid – only if there are extras
+  let extrasBlock = '';
+  if (extras.length > 0) {
+    const extraImgs = extras.map(img =>
+      `<img src="${img}" style="width:160px;height:160px;object-fit:cover;border-radius:8px;display:block;">`
+    ).join('');
+    extrasBlock = `
+      <div style="margin-top:4px;padding-top:24px;border-top:1px solid #ebebeb;">
+        <div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#aaa;margin-bottom:14px;font-family:Arial,sans-serif;">Weitere Bilder</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">${extraImgs}</div>
+      </div>`;
+  }
 
-  const content = `<div style="width:680px;padding:52px 52px 40px;font-family:Arial,sans-serif;color:#111;background:#fff;">
-    <div style="text-align:center;border-bottom:1px solid #eee;padding-bottom:28px;margin-bottom:36px;">
-      <div style="font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#aaa;margin-bottom:10px;">Amsterdam · 2025</div>
-      <div style="font-family:Georgia,serif;font-size:30px;font-weight:bold;line-height:1.2;margin-bottom:8px;">Alles Gute zum Geburtstag, <span style="font-style:italic;font-weight:normal;">Schatzi!</span></div>
-      <div style="font-size:13px;color:#888;font-style:italic;">Unsere Date-Erinnerungen aus Amsterdam</div>
-    </div>
-    ${rows}
-    ${extrasBlock}
-    <div style="text-align:center;font-family:Georgia,serif;font-style:italic;font-size:16px;color:#e8a0a0;margin-top:32px;padding-top:24px;border-top:1px solid #eee;">
-      ♡ In Erinnerung an unsere Zeit in Amsterdam ♡
-    </div>
-  </div>`;
+  const fullHTML = `
+    <div style="width:680px;padding:52px 52px 44px;font-family:Arial,sans-serif;color:#111;background:#ffffff;">
+      <div style="text-align:center;border-bottom:1px solid #ebebeb;padding-bottom:28px;margin-bottom:36px;">
+        <div style="font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:#aaa;margin-bottom:12px;">Amsterdam · 2026</div>
+        <div style="font-family:Georgia,serif;font-size:30px;font-weight:bold;line-height:1.2;margin-bottom:8px;">
+          Alles Gute zum Geburtstag, <span style="font-style:italic;font-weight:normal;">Schatzi!</span>
+        </div>
+        <div style="font-size:13px;color:#888;font-style:italic;">Unsere Date-Erinnerungen aus Amsterdam</div>
+      </div>
+      ${rows}
+      ${extrasBlock}
+      <div style="text-align:center;font-family:Georgia,serif;font-style:italic;font-size:16px;color:#e8a0a0;margin-top:28px;padding-top:22px;border-top:1px solid #ebebeb;">
+        ♡ In Erinnerung an unsere Zeit in Amsterdam ♡
+      </div>
+    </div>`;
 
   const wrap = document.createElement('div');
-  wrap.style.cssText = 'position:fixed;left:-9999px;top:0;';
-  wrap.innerHTML = content;
+  wrap.style.cssText = 'position:fixed;left:-9999px;top:0;z-index:-999;';
+  wrap.innerHTML = fullHTML;
   document.body.appendChild(wrap);
+
+  const el = wrap.firstElementChild;
 
   html2pdf().set({
     margin: 0,
     filename: 'amsterdam-erinnerung.pdf',
     image: { type: 'jpeg', quality: 0.95 },
-    html2canvas: { scale: 2, useCORS: true, allowTaint: true, backgroundColor: '#fff', logging: false },
+    html2canvas: {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#ffffff',
+      logging: false,
+      imageTimeout: 15000,
+    },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  }).from(wrap.firstElementChild).save().then(() => {
+  }).from(el).save().then(() => {
     document.body.removeChild(wrap);
     showToast('PDF gespeichert ✓');
   }).catch(err => {
@@ -447,7 +400,7 @@ function exportPDF() {
   });
 }
 
-// ── TOAST ─────────────────────────────────────────────────────
+// ── UTILS ─────────────────────────────────────────────────────
 function showToast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg;
@@ -455,7 +408,6 @@ function showToast(msg) {
   clearTimeout(t._t);
   t._t = setTimeout(() => t.classList.remove('show'), 2500);
 }
-
 function esc(s) {
   return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
