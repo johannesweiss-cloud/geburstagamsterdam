@@ -85,7 +85,7 @@ textarea.field-input { resize: none; min-height: 86px; line-height: 1.55; }
 
 <div class="hero">
   <span class="hero-tag">Amsterdam · 2026</span>
-  <h1>Alles Gute zum<br>Geburtstag, <em>Schatzii!</em></h1>
+  <h1>Alles Gute zum<br>Geburtstag, <em>Schatzi!</em></h1>
   <p class="hero-sub">Date Ideen für unsere Zeit in Amsterdam</p>
 </div>
 
@@ -406,7 +406,13 @@ async function exportPDF() {
       if (drawH > 120) { drawH = 120; drawW = drawH * ratio; }
       // Center horizontally within column if narrower
       const offsetX = imgX + (IMG_COL - drawW) / 2;
+      const radius = 4;
+      pdf.saveGraphicsState();
+      pdf.setFillColor(255, 255, 255);
+      pdf.roundedRect(offsetX, y, drawW, drawH, radius, radius, 'f');
+      pdf.clip();
       pdf.addImage(imgEl.src, 'JPEG', offsetX, y, drawW, drawH, '', 'FAST');
+      pdf.restoreGraphicsState();
     } else {
       // Placeholder
       pdf.setFillColor(242, 242, 240);
@@ -494,7 +500,13 @@ async function exportPDF() {
         // Light background for the square slot
         pdf.setFillColor(245, 245, 243);
         pdf.roundedRect(ex, y, THUMB, THUMB, 2, 2, 'F');
+        const rE = 3;
+        pdf.saveGraphicsState();
+        pdf.setFillColor(255, 255, 255);
+        pdf.roundedRect(ox, oy, dw, dh, rE, rE, 'f');
+        pdf.clip();
         pdf.addImage(imgEl.src, 'JPEG', ox, oy, dw, dh, '', 'FAST');
+        pdf.restoreGraphicsState();
       } else {
         pdf.setFillColor(242, 242, 240);
         pdf.roundedRect(ex, y, THUMB, THUMB, 2, 2, 'F');
