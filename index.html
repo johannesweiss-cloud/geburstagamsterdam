@@ -239,17 +239,33 @@ function renderExtras() {
 function pickImage(onResult) {
   const input = document.createElement('input');
   input.type = 'file';
-  input.accept = 'image/*';
-  // No capture attribute - avoids black camera in Chrome
-  input.style.cssText = 'position:fixed;top:-200px;left:-200px;opacity:0;width:1px;height:1px;';
+  input.accept = 'image/jpeg,image/png,image/webp,image/heic,image/heif';
+  // No 'capture' attribute - avoids black camera bug in Chrome desktop
+  input.style.cssText = 'position:fixed;top:-500px;left:-500px;opacity:0;width:1px;height:1px;';
   document.body.appendChild(input);
+
+  let handled = false;
   input.addEventListener('change', function() {
+    if (handled) return;
+    handled = true;
     const file = this.files && this.files[0];
-    document.body.removeChild(input);
+    setTimeout(() => { try { document.body.removeChild(input); } catch(_){} }, 100);
     if (!file) return;
     resizeImage(file, onResult);
   });
-  // Delay helps Chrome open file picker reliably
+
+  // Focus window listener to detect cancel
+  const onFocus = () => {
+    setTimeout(() => {
+      if (!handled) {
+        handled = true;
+        try { document.body.removeChild(input); } catch(_){}
+      }
+      window.removeEventListener('focus', onFocus);
+    }, 500);
+  };
+  window.addEventListener('focus', onFocus);
+
   setTimeout(() => input.click(), 50);
 }
 
@@ -258,14 +274,14 @@ function resizeImage(file, callback) {
   reader.onload = function(e) {
     const img = new Image();
     img.onload = function() {
-      const MAX = 1400;
+      const MAX = 1600;
       let w = img.width, h = img.height;
       if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
       if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
       const canvas = document.createElement('canvas');
       canvas.width = w; canvas.height = h;
       canvas.getContext('2d').drawImage(img, 0, 0, w, h);
-      callback(canvas.toDataURL('image/jpeg', 0.85));
+      callback(canvas.toDataURL('image/jpeg', 0.88));
     };
     img.onerror = () => showToast('Bild konnte nicht geladen werden');
     img.src = e.target.result;
@@ -315,67 +331,58 @@ function exportPDF() {
   if (!window.html2pdf) { showToast('Bitte kurz warten…'); return; }
   showToast('PDF wird erstellt…');
 
-  // Build date rows – alternating image left/right
+  // Each date row: image takes natural proportions, text beside it
+  // Image is constrained to a fixed width, height is automatic → no squishing
   const rows = dates.map((d, i) => {
     const rev = i % 2 === 1;
 
-    // Image block – natural aspect ratio, no forced height
     const imgBlock = d.img
-      ? `<div style="width:260px;flex-shrink:0;">
-           <img src="${d.img}" style="width:260px;height:auto;max-height:210px;object-fit:cover;border-radius:10px;display:block;">
-         </div>`
-      : `<div style="width:260px;height:180px;flex-shrink:0;background:#f0f0ee;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#bbb;letter-spacing:.06em;text-transform:uppercase;">
-           Kein Foto
-         </div>`;
+      ? `<img src="${d.img}" style="width:240px;height:180px;object-fit:contain;object-position:center;border-radius:8px;display:block;flex-shrink:0;background:#f5f5f5;">`
+      : `<div style="width:240px;height:180px;flex-shrink:0;background:#f0f0ee;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#bbb;letter-spacing:.06em;text-transform:uppercase;">Kein Foto</div>`;
 
     const textBlock = `
-      <div style="flex:1;min-width:0;padding:4px 0;">
+      <div style="flex:1;min-width:0;display:flex;flex-direction:column;justify-content:center;padding:4px 0;">
         <div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#aaa;margin-bottom:6px;font-family:Arial,sans-serif;">Date ${String(i+1).padStart(2,'0')}</div>
-        <div style="font-family:Georgia,serif;font-size:21px;font-weight:bold;margin-bottom:9px;line-height:1.2;color:#111;">${esc(d.title)}</div>
-        <div style="font-size:12.5px;line-height:1.7;color:#555;font-family:Arial,sans-serif;">${esc(d.desc)}</div>
+        <div style="font-family:Georgia,serif;font-size:21px;font-weight:bold;margin-bottom:8px;line-height:1.2;color:#111;">${esc(d.title)}</div>
+        <div style="font-size:12px;line-height:1.7;color:#555;font-family:Arial,sans-serif;">${esc(d.desc)}</div>
       </div>`;
 
     return `
-      <div style="display:flex;flex-direction:${rev ? 'row-reverse' : 'row'};gap:26px;align-items:center;margin-bottom:30px;padding-bottom:26px;border-bottom:1px solid #ebebeb;">
+      <div style="display:flex;flex-direction:${rev ? 'row-reverse' : 'row'};gap:24px;align-items:center;margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid #ebebeb;">
         ${imgBlock}${textBlock}
       </div>`;
   }).join('');
 
-  // Extras grid – only if there are extras
+  // Extras
   let extrasBlock = '';
   if (extras.length > 0) {
-    const extraImgs = extras.map(img =>
-      `<img src="${img}" style="width:160px;height:160px;object-fit:cover;border-radius:8px;display:block;">`
+    const imgs = extras.map(img =>
+      `<img src="${img}" style="width:155px;height:155px;object-fit:cover;border-radius:8px;display:block;">`
     ).join('');
     extrasBlock = `
-      <div style="margin-top:4px;padding-top:24px;border-top:1px solid #ebebeb;">
-        <div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#aaa;margin-bottom:14px;font-family:Arial,sans-serif;">Weitere Bilder</div>
-        <div style="display:flex;flex-wrap:wrap;gap:10px;">${extraImgs}</div>
+      <div style="padding-top:20px;border-top:1px solid #ebebeb;margin-top:4px;">
+        <div style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#aaa;margin-bottom:12px;font-family:Arial,sans-serif;">Weitere Bilder</div>
+        <div style="display:flex;flex-wrap:wrap;gap:10px;">${imgs}</div>
       </div>`;
   }
 
   const fullHTML = `
-    <div style="width:680px;padding:52px 52px 44px;font-family:Arial,sans-serif;color:#111;background:#ffffff;">
-      <div style="text-align:center;border-bottom:1px solid #ebebeb;padding-bottom:28px;margin-bottom:36px;">
-        <div style="font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:#aaa;margin-bottom:12px;">Amsterdam · 2026</div>
-        <div style="font-family:Georgia,serif;font-size:30px;font-weight:bold;line-height:1.2;margin-bottom:8px;">
+    <div style="width:660px;padding:48px 48px 40px;font-family:Arial,sans-serif;color:#111;background:#fff;">
+      <div style="text-align:center;border-bottom:1px solid #ebebeb;padding-bottom:24px;margin-bottom:30px;">
+        <div style="font-size:9px;letter-spacing:.28em;text-transform:uppercase;color:#aaa;margin-bottom:10px;">Amsterdam · 2026</div>
+        <div style="font-family:Georgia,serif;font-size:28px;font-weight:bold;line-height:1.2;margin-bottom:6px;">
           Alles Gute zum Geburtstag, <span style="font-style:italic;font-weight:normal;">Schatzi!</span>
         </div>
-        <div style="font-size:13px;color:#888;font-style:italic;">Unsere Date-Erinnerungen aus Amsterdam</div>
+        <div style="font-size:12px;color:#888;font-style:italic;">Unsere Date-Erinnerungen aus Amsterdam</div>
       </div>
       ${rows}
       ${extrasBlock}
-      <div style="text-align:center;font-family:Georgia,serif;font-style:italic;font-size:16px;color:#e8a0a0;margin-top:28px;padding-top:22px;border-top:1px solid #ebebeb;">
-        ♡ In Erinnerung an unsere Zeit in Amsterdam ♡
-      </div>
     </div>`;
 
   const wrap = document.createElement('div');
   wrap.style.cssText = 'position:fixed;left:-9999px;top:0;z-index:-999;';
   wrap.innerHTML = fullHTML;
   document.body.appendChild(wrap);
-
-  const el = wrap.firstElementChild;
 
   html2pdf().set({
     margin: 0,
@@ -387,10 +394,10 @@ function exportPDF() {
       allowTaint: true,
       backgroundColor: '#ffffff',
       logging: false,
-      imageTimeout: 15000,
+      imageTimeout: 20000,
     },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  }).from(el).save().then(() => {
+  }).from(wrap.firstElementChild).save().then(() => {
     document.body.removeChild(wrap);
     showToast('PDF gespeichert ✓');
   }).catch(err => {
@@ -412,7 +419,6 @@ function esc(s) {
   return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-// ── INIT ──────────────────────────────────────────────────────
 loadState();
 renderDates();
 renderExtras();
