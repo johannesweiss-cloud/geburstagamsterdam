@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Amsterdam ♡</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Outfit:wght@300;400;500&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <style>
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -13,11 +12,9 @@
   --white: #ffffff;
   --bg: #f7f7f5;
   --card-bg: #f0f0ee;
-  --border: #e8e8e4;
+  --border: #e2e2de;
   --text: #111111;
   --muted: #888880;
-  --accent: #111111;
-  --pink: #e8a0a0;
   --radius: 20px;
 }
 
@@ -31,563 +28,123 @@ body {
   min-height: 100vh;
   max-width: 430px;
   margin: 0 auto;
-  padding-bottom: 120px;
+  padding-bottom: 110px;
 }
 
-/* ── HERO ── */
 .hero {
   background: var(--white);
-  padding: 64px 28px 52px;
+  padding: 60px 28px 48px;
   text-align: center;
   border-bottom: 1px solid var(--border);
 }
+.hero-tag { font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--muted); margin-bottom: 18px; display: block; }
+.hero h1 { font-family: 'Playfair Display', serif; font-size: 30px; font-weight: 600; line-height: 1.25; margin-bottom: 14px; }
+.hero h1 em { font-style: italic; font-weight: 400; }
+.hero-sub { font-size: 15px; color: var(--muted); line-height: 1.6; }
 
-.hero-tag {
-  display: inline-block;
-  font-size: 11px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 20px;
-}
+.section-label { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); padding: 28px 20px 10px; }
 
-.hero h1 {
-  font-family: 'Playfair Display', serif;
-  font-size: 32px;
-  font-weight: 600;
-  line-height: 1.25;
-  margin-bottom: 16px;
-}
+.date-list { display: flex; flex-direction: column; gap: 10px; padding: 0 14px; }
 
-.hero h1 em {
-  font-style: italic;
-  font-weight: 400;
-}
-
-.hero-sub {
-  font-size: 15px;
-  color: var(--muted);
-  line-height: 1.6;
-}
-
-/* ── SECTION LABEL ── */
-.section-label {
-  font-size: 11px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  padding: 32px 28px 12px;
-}
-
-/* ── DATE LIST ── */
-.date-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  padding: 0 16px;
-}
-
-/* ── DATE CARD ── */
-.date-card {
-  background: var(--white);
-  border-radius: var(--radius);
-  overflow: hidden;
-  border: 1px solid var(--border);
-  transition: box-shadow .2s;
-}
+.date-card { background: var(--white); border-radius: var(--radius); border: 1px solid var(--border); overflow: hidden; transition: box-shadow .2s; }
 .date-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,.06); }
 
-.card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 18px 20px;
-  cursor: pointer;
-  user-select: none;
-  -webkit-user-select: none;
-  gap: 12px;
-}
-
+.card-header { display: flex; align-items: center; justify-content: space-between; padding: 16px 18px; cursor: pointer; user-select: none; -webkit-user-select: none; gap: 12px; }
 .card-header-left { flex: 1; min-width: 0; }
+.card-num { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted); margin-bottom: 2px; }
+.card-title { font-family: 'Playfair Display', serif; font-size: 18px; font-weight: 600; line-height: 1.2; }
+.card-desc-preview { font-size: 13px; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.card-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
 
-.card-num {
-  font-size: 10px;
-  letter-spacing: .18em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 3px;
-}
-
-.card-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 19px;
-  font-weight: 600;
-  line-height: 1.2;
-  color: var(--text);
-}
-
-.card-desc-preview {
-  font-size: 13px;
-  color: var(--muted);
-  margin-top: 3px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-.card-right {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-shrink: 0;
-}
-
-/* Thumb preview */
-.card-thumb {
-  width: 44px; height: 44px;
-  border-radius: 10px;
-  object-fit: cover;
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  flex-shrink: 0;
-  display: flex; align-items: center; justify-content: center;
-  overflow: hidden;
-}
+.card-thumb { width: 42px; height: 42px; border-radius: 10px; background: var(--card-bg); border: 1px solid var(--border); overflow: hidden; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
 .card-thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.card-thumb-empty { color: var(--border); }
 
-/* Chevron */
-.chevron {
-  width: 20px; height: 20px;
-  color: var(--muted);
-  transition: transform .25s ease;
-  flex-shrink: 0;
-}
+.chevron { width: 18px; height: 18px; color: var(--muted); transition: transform .25s ease; flex-shrink: 0; }
 .date-card.open .chevron { transform: rotate(180deg); }
 
-/* ── EXPANDED BODY ── */
-.card-body {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height .35s cubic-bezier(.4,0,.2,1);
-}
-.date-card.open .card-body { max-height: 600px; }
+.card-body { max-height: 0; overflow: hidden; transition: max-height .35s cubic-bezier(.4,0,.2,1); }
+.date-card.open .card-body { max-height: 700px; }
 
-.card-body-inner {
-  padding: 0 20px 22px;
-  border-top: 1px solid var(--border);
-}
+.card-body-inner { padding: 0 18px 20px; border-top: 1px solid var(--border); }
+.card-desc-full { font-size: 14px; line-height: 1.65; color: var(--muted); padding-top: 14px; margin-bottom: 14px; }
 
-.card-desc-full {
-  font-size: 14px;
-  line-height: 1.65;
-  color: var(--muted);
-  padding-top: 16px;
-  margin-bottom: 16px;
-}
+.img-zone { border: 1.5px dashed var(--border); border-radius: 14px; overflow: hidden; cursor: pointer; transition: border-color .2s; position: relative; background: var(--bg); }
+.img-zone:hover { border-color: var(--muted); }
+.img-zone-placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; padding: 28px 20px; color: var(--muted); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; pointer-events: none; }
+.img-zone-placeholder svg { opacity: .35; }
+.img-zone-preview { width: 100%; aspect-ratio: 16/10; object-fit: cover; display: block; }
+.img-zone-hint { font-size: 11px; text-align: center; color: var(--muted); padding: 7px; background: rgba(0,0,0,.03); }
 
-/* Image upload */
-.img-upload-area {
-  border: 1.5px dashed var(--border);
-  border-radius: 14px;
-  overflow: hidden;
-  cursor: pointer;
-  transition: border-color .2s;
-  position: relative;
-}
-.img-upload-area:hover { border-color: var(--muted); }
-
-.img-upload-placeholder {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 28px 20px;
-  color: var(--muted);
-  font-size: 12px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-.img-upload-placeholder svg { opacity: .4; }
-
-.img-preview {
-  width: 100%;
-  aspect-ratio: 16/10;
-  object-fit: cover;
-  display: block;
-}
-
-.img-change-hint {
-  font-size: 11px;
-  text-align: center;
-  color: var(--muted);
-  padding: 8px;
-  background: rgba(0,0,0,.025);
-}
-
-input[type=file] { display: none; }
-
-/* ── ADD DATE BUTTON ── */
-.add-btn-wrap { padding: 10px 16px 0; }
-
-.add-btn {
-  width: 100%;
-  background: var(--white);
-  border: 1.5px dashed var(--border);
-  border-radius: var(--radius);
-  padding: 18px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 14px;
-  color: var(--muted);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  transition: border-color .2s, color .2s;
-}
+.add-btn-wrap { padding: 10px 14px 0; }
+.add-btn { width: 100%; background: var(--white); border: 1.5px dashed var(--border); border-radius: var(--radius); padding: 17px; font-family: 'Outfit', sans-serif; font-size: 14px; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 8px; transition: border-color .2s, color .2s; }
 .add-btn:hover { border-color: var(--text); color: var(--text); }
 
-/* ── EXTRA IMAGES ── */
-.extra-section {
-  padding: 32px 16px 0;
-}
+.extra-section { padding: 28px 14px 0; }
+.extra-label { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--muted); margin-bottom: 10px; padding: 0 4px; }
+.extra-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
 
-.extra-label {
-  font-size: 11px;
-  letter-spacing: .2em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 12px;
-  padding: 0 4px;
-}
-
-.extra-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-}
-
-.extra-slot {
-  border: 1.5px dashed var(--border);
-  border-radius: 14px;
-  aspect-ratio: 1;
-  overflow: hidden;
-  cursor: pointer;
-  position: relative;
-  transition: border-color .2s;
-}
+.extra-slot { border-radius: 14px; overflow: hidden; aspect-ratio: 1; cursor: pointer; border: 1.5px solid var(--border); background: var(--white); position: relative; display: flex; align-items: center; justify-content: center; transition: border-color .2s; }
 .extra-slot:hover { border-color: var(--muted); }
+.extra-slot img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-.extra-slot-inner {
-  width: 100%; height: 100%;
-  display: flex; align-items: center; justify-content: center;
-  color: var(--border);
-}
-
-.extra-slot img {
-  width: 100%; height: 100%;
-  object-fit: cover; display: block;
-}
-
-.extra-add {
-  border: 1.5px dashed var(--border);
-  border-radius: 14px;
-  aspect-ratio: 1;
-  display: flex; align-items: center; justify-content: center;
-  cursor: pointer;
-  color: var(--muted);
-  font-size: 24px;
-  transition: border-color .2s, color .2s;
-}
+.extra-add { border: 1.5px dashed var(--border); border-radius: 14px; aspect-ratio: 1; display: flex; align-items: center; justify-content: center; cursor: pointer; color: var(--muted); background: var(--white); transition: border-color .2s, color .2s; }
 .extra-add:hover { border-color: var(--text); color: var(--text); }
 
-/* ── BOTTOM BAR ── */
-.bottom-bar {
-  position: fixed;
-  bottom: 0; left: 50%;
-  transform: translateX(-50%);
-  width: 100%; max-width: 430px;
-  background: rgba(247,247,245,.92);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border-top: 1px solid var(--border);
-  padding: 14px 20px 28px;
-  display: flex;
-  gap: 10px;
-  z-index: 200;
-}
-
-.export-btn {
-  flex: 1;
-  background: var(--text);
-  color: var(--white);
-  border: none;
-  border-radius: 14px;
-  padding: 15px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 14px;
-  font-weight: 500;
-  cursor: pointer;
-  transition: opacity .2s;
-  letter-spacing: .03em;
-}
+.bottom-bar { position: fixed; bottom: 0; left: 50%; transform: translateX(-50%); width: 100%; max-width: 430px; background: rgba(247,247,245,.95); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-top: 1px solid var(--border); padding: 12px 16px 24px; z-index: 200; }
+.export-btn { width: 100%; background: var(--text); color: var(--white); border: none; border-radius: 14px; padding: 15px; font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 500; cursor: pointer; transition: opacity .2s; }
 .export-btn:hover { opacity: .85; }
-.export-btn:disabled { opacity: .35; cursor: default; }
 
-/* ── ADD DATE MODAL ── */
-.modal-overlay {
-  position: fixed; inset: 0;
-  background: rgba(0,0,0,.4);
-  backdrop-filter: blur(4px);
-  z-index: 500;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 0;
-}
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.45); backdrop-filter: blur(4px); z-index: 500; display: flex; align-items: flex-end; justify-content: center; }
 .modal-overlay.hidden { display: none; }
-
-.modal-sheet {
-  background: var(--white);
-  border-radius: 24px 24px 0 0;
-  padding: 28px 24px 48px;
-  width: 100%; max-width: 430px;
-  animation: slideUp .3s ease;
-}
-@keyframes slideUp {
-  from { transform: translateY(100%); }
-  to { transform: translateY(0); }
-}
-
-.modal-handle {
-  width: 36px; height: 4px;
-  background: var(--border);
-  border-radius: 2px;
-  margin: 0 auto 24px;
-}
-
-.modal-sheet h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 22px; font-weight: 600;
-  margin-bottom: 20px;
-}
-
-.field-label {
-  font-size: 11px;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-  color: var(--muted);
-  margin-bottom: 6px;
-  display: block;
-}
-
-.field-input {
-  width: 100%;
-  padding: 13px 16px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 15px;
-  color: var(--text);
-  outline: none;
-  margin-bottom: 14px;
-  transition: border-color .2s;
-}
+.modal-sheet { background: var(--white); border-radius: 24px 24px 0 0; padding: 24px 22px 44px; width: 100%; max-width: 430px; animation: slideUp .3s ease; }
+@keyframes slideUp { from { transform: translateY(100%); } to { transform: translateY(0); } }
+.modal-handle { width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 22px; }
+.modal-sheet h3 { font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 600; margin-bottom: 18px; }
+.field-label { font-size: 11px; letter-spacing: .15em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; display: block; }
+.field-input { width: 100%; padding: 12px 14px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; font-family: 'Outfit', sans-serif; font-size: 15px; color: var(--text); outline: none; margin-bottom: 14px; transition: border-color .2s; -webkit-appearance: none; }
 .field-input:focus { border-color: var(--text); }
+textarea.field-input { resize: none; min-height: 86px; line-height: 1.55; }
+.modal-actions { display: flex; gap: 10px; margin-top: 6px; }
+.modal-cancel { padding: 13px 18px; background: var(--bg); border: 1px solid var(--border); border-radius: 12px; font-family: 'Outfit', sans-serif; font-size: 14px; color: var(--muted); cursor: pointer; }
+.modal-save { flex: 1; padding: 13px; background: var(--text); border: none; border-radius: 12px; font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 500; color: var(--white); cursor: pointer; }
 
-textarea.field-input {
-  resize: none; min-height: 90px;
-  line-height: 1.55;
-}
-
-.modal-actions {
-  display: flex; gap: 10px; margin-top: 8px;
-}
-
-.modal-cancel {
-  flex: 0 0 auto;
-  padding: 14px 20px;
-  background: var(--bg);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 14px; color: var(--muted);
-  cursor: pointer;
-}
-
-.modal-save {
-  flex: 1;
-  padding: 14px;
-  background: var(--text);
-  border: none; border-radius: 12px;
-  font-family: 'Outfit', sans-serif;
-  font-size: 14px; font-weight: 500;
-  color: var(--white); cursor: pointer;
-}
-
-/* ── PDF TEMPLATE ── */
-#pdf-root { display: none; }
-
-.pdf-page {
-  width: 794px;
-  background: #ffffff;
-  font-family: 'Outfit', Arial, sans-serif;
-  color: #111;
-  padding: 64px 64px 48px;
-}
-
-.pdf-hero {
-  text-align: center;
-  border-bottom: 1px solid #e8e8e4;
-  padding-bottom: 36px;
-  margin-bottom: 48px;
-}
-
-.pdf-hero-tag {
-  font-size: 11px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: #aaa;
-  margin-bottom: 12px;
-}
-
-.pdf-hero h1 {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 38px; font-weight: 600;
-  line-height: 1.2;
-}
-
-.pdf-hero h1 em { font-style: italic; font-weight: 400; }
-
-.pdf-row {
-  display: flex;
-  align-items: center;
-  gap: 40px;
-  margin-bottom: 52px;
-  break-inside: avoid;
-}
-
-.pdf-row.reverse { flex-direction: row-reverse; }
-
-.pdf-img-wrap {
-  flex: 0 0 320px;
-  border-radius: 16px;
-  overflow: hidden;
-  background: #f0f0ee;
-}
-
-.pdf-img-wrap img {
-  width: 100%; aspect-ratio: 4/3;
-  object-fit: cover; display: block;
-}
-
-.pdf-img-placeholder {
-  width: 100%; aspect-ratio: 4/3;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 12px; letter-spacing: .1em; text-transform: uppercase;
-  color: #bbb;
-}
-
-.pdf-text { flex: 1; }
-
-.pdf-date-num {
-  font-size: 10px;
-  letter-spacing: .22em;
-  text-transform: uppercase;
-  color: #aaa;
-  margin-bottom: 8px;
-}
-
-.pdf-date-title {
-  font-family: 'Playfair Display', Georgia, serif;
-  font-size: 26px; font-weight: 600;
-  line-height: 1.2;
-  margin-bottom: 12px;
-}
-
-.pdf-date-desc {
-  font-size: 14px; line-height: 1.7;
-  color: #666; font-weight: 300;
-}
-
-.pdf-extras {
-  margin-top: 48px;
-  border-top: 1px solid #e8e8e4;
-  padding-top: 36px;
-}
-
-.pdf-extras-label {
-  font-size: 11px; letter-spacing: .22em;
-  text-transform: uppercase; color: #aaa;
-  margin-bottom: 20px;
-}
-
-.pdf-extras-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 12px;
-}
-
-.pdf-extras-grid img {
-  width: 100%; aspect-ratio: 1;
-  object-fit: cover; display: block;
-  border-radius: 10px;
-}
-
-.pdf-footer {
-  text-align: center;
-  font-family: 'Playfair Display', Georgia, serif;
-  font-style: italic;
-  font-size: 18px;
-  color: #e8a0a0;
-  margin-top: 48px;
-  padding-top: 32px;
-  border-top: 1px solid #e8e8e4;
-}
+.toast { position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%); background: var(--text); color: var(--white); padding: 10px 20px; border-radius: 20px; font-size: 13px; z-index: 600; opacity: 0; transition: opacity .3s; pointer-events: none; white-space: nowrap; }
+.toast.show { opacity: 1; }
 </style>
 </head>
 <body>
 
-<!-- HERO -->
 <div class="hero">
   <span class="hero-tag">Amsterdam · 2025</span>
   <h1>Alles Gute zum<br>Geburtstag, <em>Schatzi!</em></h1>
   <p class="hero-sub">Date Ideen für unsere Zeit in Amsterdam</p>
 </div>
 
-<!-- DATE LIST -->
 <div class="section-label">Unsere Dates</div>
 <div class="date-list" id="date-list"></div>
 
-<!-- ADD BUTTON -->
 <div class="add-btn-wrap">
   <button class="add-btn" onclick="openModal()">
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
     Neues Date hinzufügen
   </button>
 </div>
 
-<!-- EXTRA IMAGES -->
 <div class="extra-section">
   <div class="extra-label">Weitere Bilder</div>
   <div class="extra-grid" id="extra-grid"></div>
 </div>
 
-<!-- BOTTOM BAR -->
 <div class="bottom-bar">
-  <button class="export-btn" id="export-btn" onclick="exportPDF()">Als Erinnerung exportieren ↓</button>
+  <button class="export-btn" onclick="exportPDF()">Als Erinnerung exportieren ↓</button>
 </div>
 
-<!-- ADD DATE MODAL -->
 <div class="modal-overlay hidden" id="modal">
   <div class="modal-sheet">
     <div class="modal-handle"></div>
     <h3>Neues Date</h3>
     <label class="field-label">Titel</label>
-    <input class="field-input" type="text" id="new-title" placeholder="z.B. Tretboot fahren…">
+    <input class="field-input" type="text" id="new-title" placeholder="z.B. Tretboot fahren…" autocomplete="off">
     <label class="field-label">Beschreibung</label>
     <textarea class="field-input" id="new-desc" placeholder="Was erwartet uns dort?"></textarea>
     <div class="modal-actions">
@@ -597,53 +154,75 @@ textarea.field-input {
   </div>
 </div>
 
-<!-- PDF ROOT -->
-<div id="pdf-root"></div>
+<div class="toast" id="toast"></div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
-// ── STATE ──
-let dates = JSON.parse(localStorage.getItem('ams-dates') || 'null') || [
-  { id: uid(), title: 'Tretboot', desc: 'Tretboot fahren in den Kanälen Amsterdams', img: null },
-  { id: uid(), title: 'Flughafen', desc: 'Flugzeugen beim Starten und Landen zuschauen', img: null },
-  { id: uid(), title: 'Lookout', desc: 'Schöne Aussicht über ganz Amsterdam', img: null },
-  { id: uid(), title: 'Topgolf', desc: 'Minigolf aber mal bisschen anders', img: null },
-];
-let extras = JSON.parse(localStorage.getItem('ams-extras') || '[]');
+// ── STATE ──────────────────────────────────────────────────────
+let dates = [];
+let extras = [];
 
-function uid() { return Math.random().toString(36).slice(2, 9); }
-
-function save() {
-  localStorage.setItem('ams-dates', JSON.stringify(dates));
-  localStorage.setItem('ams-extras', JSON.stringify(extras));
+function loadState() {
+  try {
+    const d = localStorage.getItem('ams-dates-v2');
+    const e = localStorage.getItem('ams-extras-v2');
+    dates = d ? JSON.parse(d) : getDefaultDates();
+    extras = e ? JSON.parse(e) : [];
+  } catch(_) {
+    dates = getDefaultDates();
+    extras = [];
+  }
 }
 
-// ── RENDER DATES ──
+function saveState() {
+  try {
+    localStorage.setItem('ams-dates-v2', JSON.stringify(dates));
+    localStorage.setItem('ams-extras-v2', JSON.stringify(extras));
+  } catch(e) {
+    showToast('Speicherfehler – Bilder evtl. zu groß');
+  }
+}
+
+function getDefaultDates() {
+  return [
+    { id: uid(), title: 'Tretboot', desc: 'Tretboot fahren in den Kanälen Amsterdams', img: null },
+    { id: uid(), title: 'Flughafen', desc: 'Flugzeugen beim Starten und Landen zuschauen', img: null },
+    { id: uid(), title: 'Lookout', desc: 'Schöne Aussicht über ganz Amsterdam', img: null },
+    { id: uid(), title: 'Topgolf', desc: 'Minigolf aber mal bisschen anders', img: null },
+  ];
+}
+
+function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2,6); }
+
+// ── RENDER DATES ───────────────────────────────────────────────
 function renderDates() {
   const list = document.getElementById('date-list');
+  const openIds = new Set([...list.querySelectorAll('.date-card.open')].map(c => c.id.replace('card-','')));
   list.innerHTML = '';
+
   dates.forEach((d, i) => {
     const card = document.createElement('div');
-    card.className = 'date-card';
+    card.className = 'date-card' + (openIds.has(d.id) ? ' open' : '');
     card.id = 'card-' + d.id;
 
     const thumbHTML = d.img
-      ? `<div class="card-thumb"><img src="${d.img}"></div>`
-      : `<div class="card-thumb"><svg class="card-thumb-empty" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
+      ? `<div class="card-thumb"><img src="${d.img}" alt=""></div>`
+      : `<div class="card-thumb"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#ccc" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg></div>`;
 
-    const imgBodyHTML = d.img
-      ? `<div class="img-upload-area" onclick="triggerUpload('${d.id}')">
-           <img class="img-preview" src="${d.img}">
-           <div class="img-change-hint">Tippen zum Ändern</div>
+    const imgZoneHTML = d.img
+      ? `<div class="img-zone" data-id="${d.id}">
+           <img class="img-zone-preview" src="${d.img}" alt="">
+           <div class="img-zone-hint">Tippen zum Ändern</div>
          </div>`
-      : `<div class="img-upload-area" onclick="triggerUpload('${d.id}')">
-           <div class="img-upload-placeholder">
-             <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      : `<div class="img-zone" data-id="${d.id}">
+           <div class="img-zone-placeholder">
+             <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
              Foto hinzufügen
            </div>
          </div>`;
 
     card.innerHTML = `
-      <div class="card-header" onclick="toggleCard('${d.id}')">
+      <div class="card-header" data-toggle="${d.id}">
         <div class="card-header-left">
           <div class="card-num">Date ${String(i+1).padStart(2,'0')}</div>
           <div class="card-title">${esc(d.title)}</div>
@@ -657,36 +236,88 @@ function renderDates() {
       <div class="card-body">
         <div class="card-body-inner">
           <div class="card-desc-full">${esc(d.desc)}</div>
-          ${imgBodyHTML}
-          <input type="file" accept="image/*" id="file-${d.id}" onchange="handleUpload('${d.id}', this)">
+          ${imgZoneHTML}
         </div>
       </div>`;
 
     list.appendChild(card);
   });
+
+  // Attach events after render
+  list.querySelectorAll('[data-toggle]').forEach(el => {
+    el.addEventListener('click', () => toggleCard(el.dataset.toggle));
+  });
+  list.querySelectorAll('.img-zone').forEach(el => {
+    el.addEventListener('click', () => triggerDateUpload(el.dataset.id));
+  });
 }
 
 function toggleCard(id) {
   const card = document.getElementById('card-' + id);
-  card.classList.toggle('open');
+  if (!card) return;
+  const isOpen = card.classList.contains('open');
+  document.querySelectorAll('.date-card.open').forEach(c => c.classList.remove('open'));
+  if (!isOpen) card.classList.add('open');
 }
 
-function triggerUpload(id) {
-  document.getElementById('file-' + id).click();
+// ── IMAGE UPLOAD – universal robust method ─────────────────────
+function pickImage(onResult) {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.style.cssText = 'position:fixed;top:-100px;left:-100px;opacity:0;';
+  document.body.appendChild(input);
+
+  input.addEventListener('change', function() {
+    const file = this.files && this.files[0];
+    document.body.removeChild(input);
+    if (!file) return;
+    resizeImage(file, onResult);
+  });
+
+  // Small delay helps Chrome
+  setTimeout(() => input.click(), 10);
 }
 
-function handleUpload(id, input) {
-  const file = input.files[0];
-  if (!file) return;
+function resizeImage(file, callback) {
   const reader = new FileReader();
-  reader.onload = e => {
-    const d = dates.find(x => x.id === id);
-    if (d) { d.img = e.target.result; save(); renderDates(); }
+  reader.onload = function(e) {
+    const img = new Image();
+    img.onload = function() {
+      const MAX = 1200;
+      let w = img.width, h = img.height;
+      if (w > MAX) { h = Math.round(h * MAX / w); w = MAX; }
+      if (h > MAX) { w = Math.round(w * MAX / h); h = MAX; }
+      const canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(img, 0, 0, w, h);
+      callback(canvas.toDataURL('image/jpeg', 0.82));
+    };
+    img.onerror = () => showToast('Bild konnte nicht geladen werden');
+    img.src = e.target.result;
   };
+  reader.onerror = () => showToast('Datei konnte nicht gelesen werden');
   reader.readAsDataURL(file);
 }
 
-// ── EXTRA IMAGES ──
+function triggerDateUpload(id) {
+  pickImage(dataUrl => {
+    const d = dates.find(x => x.id === id);
+    if (!d) return;
+    d.img = dataUrl;
+    saveState();
+    renderDates();
+    // Re-open card after re-render
+    requestAnimationFrame(() => {
+      const card = document.getElementById('card-' + id);
+      if (card) card.classList.add('open');
+    });
+    showToast('Foto gespeichert ✓');
+  });
+}
+
+// ── EXTRA IMAGES ───────────────────────────────────────────────
 function renderExtras() {
   const grid = document.getElementById('extra-grid');
   grid.innerHTML = '';
@@ -694,43 +325,39 @@ function renderExtras() {
   extras.forEach((img, i) => {
     const slot = document.createElement('div');
     slot.className = 'extra-slot';
-    slot.innerHTML = `<img src="${img}" onclick="replaceExtra(${i})">
-      <input type="file" accept="image/*" id="extra-file-${i}" onchange="handleExtraUpload(${i}, this)">`;
+    const imgEl = document.createElement('img');
+    imgEl.src = img;
+    imgEl.alt = '';
+    slot.appendChild(imgEl);
+    slot.addEventListener('click', () => {
+      pickImage(dataUrl => {
+        extras[i] = dataUrl;
+        saveState();
+        renderExtras();
+        showToast('Bild geändert ✓');
+      });
+    });
     grid.appendChild(slot);
   });
 
-  // Add button
   const addBtn = document.createElement('div');
   addBtn.className = 'extra-add';
-  addBtn.innerHTML = `+<input type="file" accept="image/*" id="extra-new" onchange="handleNewExtra(this)" style="position:absolute;inset:0;opacity:0;cursor:pointer">`;
-  addBtn.style.position = 'relative';
+  addBtn.innerHTML = `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>`;
+  addBtn.addEventListener('click', () => {
+    pickImage(dataUrl => {
+      extras.push(dataUrl);
+      saveState();
+      renderExtras();
+      showToast('Bild hinzugefügt ✓');
+    });
+  });
   grid.appendChild(addBtn);
 }
 
-function handleNewExtra(input) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => { extras.push(e.target.result); save(); renderExtras(); };
-  reader.readAsDataURL(file);
-}
-
-function replaceExtra(i) {
-  document.getElementById('extra-file-' + i).click();
-}
-
-function handleExtraUpload(i, input) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => { extras[i] = e.target.result; save(); renderExtras(); };
-  reader.readAsDataURL(file);
-}
-
-// ── MODAL ──
+// ── MODAL ─────────────────────────────────────────────────────
 function openModal() {
   document.getElementById('modal').classList.remove('hidden');
-  document.getElementById('new-title').focus();
+  setTimeout(() => document.getElementById('new-title').focus(), 350);
 }
 
 function closeModal() {
@@ -742,73 +369,99 @@ function closeModal() {
 function addDate() {
   const title = document.getElementById('new-title').value.trim();
   const desc = document.getElementById('new-desc').value.trim();
-  if (!title) return;
+  if (!title) { document.getElementById('new-title').focus(); return; }
   dates.push({ id: uid(), title, desc, img: null });
-  save(); renderDates(); closeModal();
+  saveState();
+  renderDates();
+  closeModal();
+  showToast('Date hinzugefügt ✓');
+  setTimeout(() => {
+    const last = document.getElementById('date-list').lastElementChild;
+    if (last) last.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }, 150);
 }
 
-// Close modal on overlay click
 document.getElementById('modal').addEventListener('click', function(e) {
   if (e.target === this) closeModal();
 });
 
-// ── PDF EXPORT ──
+// ── PDF EXPORT ────────────────────────────────────────────────
 function exportPDF() {
-  const datesHTML = dates.map((d, i) => {
-    const isReverse = i % 2 === 1;
-    const imgPart = d.img
-      ? `<div class="pdf-img-wrap"><img src="${d.img}"></div>`
-      : `<div class="pdf-img-wrap"><div class="pdf-img-placeholder">Kein Foto</div></div>`;
-    const textPart = `<div class="pdf-text">
-      <div class="pdf-date-num">Date ${String(i+1).padStart(2,'0')}</div>
-      <div class="pdf-date-title">${esc(d.title)}</div>
-      <div class="pdf-date-desc">${esc(d.desc)}</div>
+  if (!window.html2pdf) { showToast('Bitte kurz warten…'); return; }
+  showToast('PDF wird erstellt…');
+
+  const rows = dates.map((d, i) => {
+    const rev = i % 2 === 1;
+    const imgBlock = d.img
+      ? `<img src="${d.img}" style="width:260px;height:180px;object-fit:cover;border-radius:10px;display:block;flex-shrink:0;">`
+      : `<div style="width:260px;height:180px;background:#f0f0ee;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:11px;color:#bbb;letter-spacing:.06em;flex-shrink:0;">Kein Foto</div>`;
+    const textBlock = `<div style="flex:1;min-width:0;${rev ? 'padding-right:0;padding-left:0;' : ''}">
+      <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#aaa;margin-bottom:5px;">Date ${String(i+1).padStart(2,'0')}</div>
+      <div style="font-family:Georgia,serif;font-size:20px;font-weight:bold;margin-bottom:8px;line-height:1.2;">${esc(d.title)}</div>
+      <div style="font-size:12px;line-height:1.7;color:#555;">${esc(d.desc)}</div>
     </div>`;
-    return `<div class="pdf-row ${isReverse ? 'reverse' : ''}">
-      ${imgPart}${textPart}
+    return `<div style="display:flex;flex-direction:${rev ? 'row-reverse' : 'row'};gap:24px;align-items:center;margin-bottom:32px;padding-bottom:28px;border-bottom:1px solid #eee;">
+      ${imgBlock}${textBlock}
     </div>`;
   }).join('');
 
-  const extrasHTML = extras.length > 0 ? `
-    <div class="pdf-extras">
-      <div class="pdf-extras-label">Weitere Bilder</div>
-      <div class="pdf-extras-grid">
-        ${extras.map(img => `<img src="${img}">`).join('')}
+  const extrasBlock = extras.length ? `
+    <div style="padding-top:24px;border-top:1px solid #eee;">
+      <div style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#aaa;margin-bottom:14px;">Weitere Bilder</div>
+      <div style="display:flex;flex-wrap:wrap;gap:10px;">
+        ${extras.map(img => `<img src="${img}" style="width:150px;height:150px;object-fit:cover;border-radius:8px;">`).join('')}
       </div>
     </div>` : '';
 
-  document.getElementById('pdf-root').innerHTML = `
-    <div class="pdf-page" id="pdf-inner">
-      <div class="pdf-hero">
-        <div class="pdf-hero-tag">Amsterdam · 2025</div>
-        <h1>Alles Gute zum Geburtstag, <em>Schatzi!</em></h1>
-      </div>
-      ${datesHTML}
-      ${extrasHTML}
-      <div class="pdf-footer">♡ In Erinnerung an unsere Zeit in Amsterdam ♡</div>
-    </div>`;
+  const content = `<div style="width:680px;padding:52px 52px 40px;font-family:Arial,sans-serif;color:#111;background:#fff;">
+    <div style="text-align:center;border-bottom:1px solid #eee;padding-bottom:28px;margin-bottom:36px;">
+      <div style="font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:#aaa;margin-bottom:10px;">Amsterdam · 2025</div>
+      <div style="font-family:Georgia,serif;font-size:30px;font-weight:bold;line-height:1.2;margin-bottom:8px;">Alles Gute zum Geburtstag, <span style="font-style:italic;font-weight:normal;">Schatzi!</span></div>
+      <div style="font-size:13px;color:#888;font-style:italic;">Unsere Date-Erinnerungen aus Amsterdam</div>
+    </div>
+    ${rows}
+    ${extrasBlock}
+    <div style="text-align:center;font-family:Georgia,serif;font-style:italic;font-size:16px;color:#e8a0a0;margin-top:32px;padding-top:24px;border-top:1px solid #eee;">
+      ♡ In Erinnerung an unsere Zeit in Amsterdam ♡
+    </div>
+  </div>`;
 
-  document.getElementById('pdf-root').style.display = 'block';
-  const el = document.getElementById('pdf-inner');
+  const wrap = document.createElement('div');
+  wrap.style.cssText = 'position:fixed;left:-9999px;top:0;';
+  wrap.innerHTML = content;
+  document.body.appendChild(wrap);
 
   html2pdf().set({
     margin: 0,
     filename: 'amsterdam-erinnerung.pdf',
-    image: { type: 'jpeg', quality: 0.97 },
-    html2canvas: { scale: 2, useCORS: true, backgroundColor: '#ffffff' },
-    jsPDF: { unit: 'px', format: [794, 1123], orientation: 'portrait' }
-  }).from(el).save().then(() => {
-    document.getElementById('pdf-root').style.display = 'none';
-    document.getElementById('pdf-root').innerHTML = '';
+    image: { type: 'jpeg', quality: 0.95 },
+    html2canvas: { scale: 2, useCORS: true, allowTaint: true, backgroundColor: '#fff', logging: false },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  }).from(wrap.firstElementChild).save().then(() => {
+    document.body.removeChild(wrap);
+    showToast('PDF gespeichert ✓');
+  }).catch(err => {
+    document.body.removeChild(wrap);
+    showToast('Fehler beim Export');
+    console.error(err);
   });
 }
 
-// ── UTILS ──
+// ── TOAST ─────────────────────────────────────────────────────
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  clearTimeout(t._t);
+  t._t = setTimeout(() => t.classList.remove('show'), 2500);
+}
+
 function esc(s) {
   return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
 }
 
-// ── INIT ──
+// ── INIT ──────────────────────────────────────────────────────
+loadState();
 renderDates();
 renderExtras();
 </script>
